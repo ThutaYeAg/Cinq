@@ -15,26 +15,17 @@ class Cinq extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Cinq",
-      home: Home(),
+      home: ArtistsPage(),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         useMaterial3: true,
-        colorSchemeSeed: Color(0xFFE79F9F),
+        fontFamily: "SpaceGrotesk",
+        // colorSchemeSeed: Color(0xFFF7ADC6),
+        primaryColor: Color(0xFFF7ADC6),
+        canvasColor: Color(0xFF111111),
+        primaryColorLight: Color(0xFFFFFFFF),
       ),
       themeMode: ThemeMode.dark,
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFF111111),
-      appBar: AppBar(
-        title: Text("Cinq"),
-      ),
-      body: ArtistsPage(),
     );
   }
 }

@@ -1,19 +1,81 @@
-import 'package:cinq/dummy.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'dummy.dart';
 import 'models.dart';
 
 class ArtistsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GridView(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          crossAxisSpacing: 50,
-          mainAxisSpacing: 50,
-          // childAspectRatio: 3 / 2,
+    return Scaffold(
+      backgroundColor: Color(0xFF111111),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70),
+        child: ArtistsAppBar(),
+      ),
+      body: Container(
+        child: ListView(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 32),
+              height: 80,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Artists.",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).primaryColor,
+                    letterSpacing: 6.5),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 20),
+              child: Column(
+                children: [
+                  ...DUMMY_ARTISTS
+                      .map((e) => ArtistCard(e.displayName, e.id, e.imgDark)),
+                ],
+              ),
+            ),
+          ],
+          shrinkWrap: true,
         ),
-        children: [...DUMMY_ARTISTS.map((e) => ArtistCard(e.name))],
+      ),
+    );
+  }
+}
+
+class ArtistsAppBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top,
+        left: 32,
+        right: 32,
+      ),
+      height: double.infinity,
+      color: Theme.of(context).canvasColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            child: SvgPicture.asset(
+              'assets/icons/menu.svg',
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).primaryColorLight,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
+          Text(
+            "cinq",
+            style: TextStyle(
+              fontSize: 24,
+              color: Theme.of(context).primaryColor,
+            ),
+          )
+        ],
       ),
     );
   }
@@ -21,18 +83,61 @@ class ArtistsPage extends StatelessWidget {
 
 class ArtistCard extends StatelessWidget {
   final String name;
+  final String id;
+  final String image;
 
-  const ArtistCard(this.name);
+  const ArtistCard(this.name, this.id, this.image);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFE79F9F),
-      height: 200,
-      child: Center(
-        child: Text(
-          name,
-          style: TextStyle(color: Color(0xFF111111)),
+      margin: EdgeInsets.only(bottom: 10),
+      width: double.infinity,
+      // color: Colors.black38,
+      height: 190,
+      child: InkWell(
+        onTap: () {},
+        highlightColor: Theme.of(context).primaryColor.withOpacity(0.1),
+        splashColor: Theme.of(context).primaryColor.withOpacity(0.1),
+        child: Ink(
+          child: Container(
+            // color: Colors.grey.shade900,
+            padding: EdgeInsets.symmetric(horizontal: 32),
+            margin: EdgeInsets.symmetric(vertical: 20),
+            child: Stack(
+              children: [
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Image.asset(image),
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        id + ".",
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryColorLight
+                                .withOpacity(.2)),
+                      ),
+                      Container(
+                        // width: 250,
+                        child: Text(
+                          name + ".",
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 40),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
