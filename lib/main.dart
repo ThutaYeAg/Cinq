@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'models.dart';
-import 'artists_page.dart';
+import 'data/models.dart';
+import 'pages/artists_page.dart';
+import 'pages/tracks_page.dart';
 
 void main() {
   runApp(Cinq());
@@ -26,6 +27,9 @@ class Cinq extends StatelessWidget {
         primaryColorLight: Color(0xFFFFFFFF),
       ),
       themeMode: ThemeMode.dark,
+      routes: {
+        "/tracks": (ctx) => TracksPage(),
+      },
     );
   }
 }
