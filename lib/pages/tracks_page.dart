@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -16,9 +18,31 @@ class TracksPage extends StatelessWidget {
         preferredSize: Size.fromHeight(70),
         child: TracksAppBar(args["name"]),
       ),
+      backgroundColor: Theme.of(context).canvasColor,
       body: Container(
-        child: Center(child: Text("bruh")),
-        color: Theme.of(context).canvasColor,
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: [
+                CinqPageTitle("Tracks."),
+                Container(
+                  padding: EdgeInsets.only(top: 20, left: 32, right: 32),
+                  child: GridView.count(
+                    physics: NeverScrollableScrollPhysics(),
+                    mainAxisSpacing: 40,
+                    crossAxisSpacing: MediaQuery.of(context).size.width - 374,
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    childAspectRatio: 155 / 203,
+                    children: [
+                      ...tracks.map((e) => TrackCard(e)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -45,6 +69,67 @@ class TracksAppBar extends StatelessWidget {
           fontSize: 24,
           color: Theme.of(context).primaryColorLight.withOpacity(0.5),
         ),
+      ),
+    );
+  }
+}
+
+class TrackCard extends StatelessWidget {
+  final track;
+
+  const TrackCard(this.track);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 155,
+      height: 203,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 5),
+            child: Image.asset(
+              track.image,
+              width: 155,
+              height: 155,
+            ),
+          ),
+          FittedBox(
+            child: Text(
+              track.name.length >= 18
+                  ? track.name.substring(0, 18) + "..."
+                  : track.name,
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor, fontSize: 18),
+            ),
+          ),
+          Container(
+            // margin: EdgeInsets.only(top: 3),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  track.duration.inMinutes.remainder(60).toString() +
+                      ":" +
+                      track.duration.inSeconds.remainder(60).toString(),
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColorLight.withOpacity(.5),
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  track.album,
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColorLight.withOpacity(.3),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

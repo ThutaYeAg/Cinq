@@ -34,3 +34,23 @@ class CinqAppBar extends StatelessWidget {
     );
   }
 }
+
+class CinqPageTitle extends StatelessWidget {
+  final text;
+  const CinqPageTitle(this.text);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 32),
+      height: 80,
+      alignment: Alignment.centerLeft,
+      child: Text(
+        text,
+        style: TextStyle(
+            fontSize: 20,
+            color: Theme.of(context).primaryColor,
+            letterSpacing: 6.5),
+      ),
+    );
+  }
+}

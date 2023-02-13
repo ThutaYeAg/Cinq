@@ -10,7 +10,7 @@ class ArtistsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF111111),
+      backgroundColor: Theme.of(context).canvasColor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: ArtistsAppBar(),
@@ -18,24 +18,17 @@ class ArtistsPage extends StatelessWidget {
       body: Container(
         child: ListView(
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 32),
-              height: 80,
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Artists.",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Theme.of(context).primaryColor,
-                    letterSpacing: 6.5),
-              ),
-            ),
+            CinqPageTitle("Artists."),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: Column(
                 children: [
-                  ...DUMMY_ARTISTS.map((e) =>
-                      ArtistCard(e.name, e.displayName, e.id, e.imgDark)),
+                  ...DUMMY_ARTISTS.map((e) => ArtistCard(
+                        e.name,
+                        e.displayName,
+                        e.id,
+                        e.imgDark,
+                      )),
                 ],
               ),
             ),
@@ -87,14 +80,14 @@ class ArtistCard extends StatelessWidget {
       // color: Colors.black38,
       height: 190,
       child: InkWell(
+        highlightColor: Theme.of(context).primaryColor.withOpacity(0.1),
+        splashColor: Theme.of(context).primaryColor.withOpacity(0.1),
         onTap: () {
           Navigator.of(context).pushNamed("/tracks", arguments: {
             "id": id,
             "name": name,
           });
         },
-        highlightColor: Theme.of(context).primaryColor.withOpacity(0.1),
-        splashColor: Theme.of(context).primaryColor.withOpacity(0.1),
         child: Container(
           // color: Colors.grey.shade900,
           padding: EdgeInsets.symmetric(horizontal: 32),
