@@ -30,6 +30,9 @@ class Cinq extends StatelessWidget {
       routes: {
         "/tracks": (ctx) => TracksPage(),
       },
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(builder: (ctx) => ArtistsPage());
+      },
     );
   }
 }

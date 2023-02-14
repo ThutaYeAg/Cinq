@@ -11,7 +11,9 @@ class TracksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
-    List tracks = DUMMY_TRACKS;
+    List tracks = DUMMY_TRACKS
+        .where((element) => element.artistId == args["id"])
+        .toList();
 
     return Scaffold(
       appBar: PreferredSize(
@@ -27,16 +29,19 @@ class TracksPage extends StatelessWidget {
                 CinqPageTitle("Tracks."),
                 Container(
                   padding: EdgeInsets.only(top: 20, left: 32, right: 32),
-                  child: GridView.count(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: 40,
+                      crossAxisSpacing: MediaQuery.of(context).size.width - 374,
+                      crossAxisCount: 2,
+                      childAspectRatio: 155 / 204,
+                    ),
                     physics: NeverScrollableScrollPhysics(),
-                    mainAxisSpacing: 40,
-                    crossAxisSpacing: MediaQuery.of(context).size.width - 374,
-                    crossAxisCount: 2,
                     shrinkWrap: true,
-                    childAspectRatio: 155 / 203,
-                    children: [
-                      ...tracks.map((e) => TrackCard(e)),
-                    ],
+                    itemCount: tracks.length,
+                    itemBuilder: (ctx, idx) {
+                      return TrackCard(tracks[idx]);
+                    },
                   ),
                 ),
               ],
@@ -83,13 +88,13 @@ class TrackCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 155,
-      height: 203,
+      height: 204,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 5),
+            margin: EdgeInsets.only(bottom: 6),
             child: Image.asset(
               track.image,
               width: 155,
@@ -102,7 +107,8 @@ class TrackCard extends StatelessWidget {
                   ? track.name.substring(0, 18) + "..."
                   : track.name,
               style: TextStyle(
-                  color: Theme.of(context).primaryColor, fontSize: 18),
+                  color: Theme.of(context).primaryColor.withOpacity(.9),
+                  fontSize: 18),
             ),
           ),
           Container(
@@ -113,17 +119,29 @@ class TrackCard extends StatelessWidget {
                 Text(
                   track.duration.inMinutes.remainder(60).toString() +
                       ":" +
-                      track.duration.inSeconds.remainder(60).toString(),
+                      (track.duration.inSeconds
+                                  .remainder(60)
+                                  .toString()
+                                  .length <
+                              2
+                          ? "0" +
+                              track.duration.inSeconds.remainder(60).toString()
+                          : track.duration.inSeconds.remainder(60).toString()),
                   style: TextStyle(
                     color: Theme.of(context).primaryColorLight.withOpacity(.5),
                     fontSize: 12,
                   ),
                 ),
-                Text(
-                  track.album,
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColorLight.withOpacity(.3),
-                    fontSize: 12,
+                FittedBox(
+                  child: Text(
+                    track.album.length >= 16
+                        ? track.album.substring(0, 16) + "..."
+                        : track.album,
+                    style: TextStyle(
+                      color:
+                          Theme.of(context).primaryColorLight.withOpacity(.3),
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ],

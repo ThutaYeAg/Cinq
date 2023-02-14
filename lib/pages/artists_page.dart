@@ -79,9 +79,9 @@ class ArtistCard extends StatelessWidget {
       width: double.infinity,
       // color: Colors.black38,
       height: 190,
-      child: InkWell(
-        highlightColor: Theme.of(context).primaryColor.withOpacity(0.1),
-        splashColor: Theme.of(context).primaryColor.withOpacity(0.1),
+      child: GestureDetector(
+        // highlightColor: Theme.of(context).primaryColor.withOpacity(0.1),
+        // splashColor: Theme.of(context).primaryColor.withOpacity(0.1),
         onTap: () {
           Navigator.of(context).pushNamed("/tracks", arguments: {
             "id": id,
@@ -89,7 +89,7 @@ class ArtistCard extends StatelessWidget {
           });
         },
         child: Container(
-          // color: Colors.grey.shade900,
+          color: Theme.of(context).canvasColor,
           padding: EdgeInsets.symmetric(horizontal: 32),
           margin: EdgeInsets.symmetric(vertical: 20),
           child: Stack(
