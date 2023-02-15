@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'data/models.dart';
 import 'pages/artists_page.dart';
 import 'pages/tracks_page.dart';
+import 'pages/trackdetail_page.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+        statusBarColor: Color(0xFF111111),
+        systemNavigationBarColor: Color(0xFF111111)),
+  );
   runApp(Cinq());
 }
 
@@ -29,6 +36,7 @@ class Cinq extends StatelessWidget {
       themeMode: ThemeMode.dark,
       routes: {
         "/tracks": (ctx) => TracksPage(),
+        "/detail": (ctx) => TrackDetailPage(),
       },
       onGenerateRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => ArtistsPage());

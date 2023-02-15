@@ -86,68 +86,81 @@ class TrackCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 155,
-      height: 204,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            margin: EdgeInsets.only(bottom: 6),
-            child: Image.asset(
-              track.image,
-              width: 155,
-              height: 155,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          "/detail",
+          arguments: track,
+        );
+      },
+      child: Container(
+        width: 155,
+        height: 204,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 6),
+              child: Image.asset(
+                track.image,
+                width: 155,
+                height: 155,
+              ),
             ),
-          ),
-          FittedBox(
-            child: Text(
-              track.name.length >= 18
-                  ? track.name.substring(0, 18) + "..."
-                  : track.name,
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor.withOpacity(.9),
-                  fontSize: 18),
+            FittedBox(
+              child: Text(
+                track.name.length >= 18
+                    ? track.name.substring(0, 18) + "..."
+                    : track.name,
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor.withOpacity(.9),
+                    fontSize: 18),
+              ),
             ),
-          ),
-          Container(
-            // margin: EdgeInsets.only(top: 3),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  track.duration.inMinutes.remainder(60).toString() +
-                      ":" +
-                      (track.duration.inSeconds
-                                  .remainder(60)
-                                  .toString()
-                                  .length <
-                              2
-                          ? "0" +
-                              track.duration.inSeconds.remainder(60).toString()
-                          : track.duration.inSeconds.remainder(60).toString()),
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColorLight.withOpacity(.5),
-                    fontSize: 12,
-                  ),
-                ),
-                FittedBox(
-                  child: Text(
-                    track.album.length >= 16
-                        ? track.album.substring(0, 16) + "..."
-                        : track.album,
+            Container(
+              // margin: EdgeInsets.only(top: 3),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    track.duration.inMinutes.remainder(60).toString() +
+                        ":" +
+                        (track.duration.inSeconds
+                                    .remainder(60)
+                                    .toString()
+                                    .length <
+                                2
+                            ? "0" +
+                                track.duration.inSeconds
+                                    .remainder(60)
+                                    .toString()
+                            : track.duration.inSeconds
+                                .remainder(60)
+                                .toString()),
                     style: TextStyle(
                       color:
-                          Theme.of(context).primaryColorLight.withOpacity(.3),
+                          Theme.of(context).primaryColorLight.withOpacity(.5),
                       fontSize: 12,
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+                  FittedBox(
+                    child: Text(
+                      track.album.length >= 16
+                          ? track.album.substring(0, 16) + "..."
+                          : track.album,
+                      style: TextStyle(
+                        color:
+                            Theme.of(context).primaryColorLight.withOpacity(.3),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

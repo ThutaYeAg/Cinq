@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models.dart';
+import 'lyrics.dart';
 
 final List DUMMY_ARTISTS = [
   const Artist(
@@ -85,7 +86,7 @@ final List DUMMY_TRACKS = [
     album: "Flower Boy",
     image: "assets/images/tracks/flowerBoy.png",
     link: "https://youtu.be/khMb3k-Wwvg",
-    lyrics: "",
+    lyrics: LYRICS["01.911"]!,
     releaseDate: DateTime(2017, 6, 30),
     duration: Duration(minutes: 4, seconds: 15),
   ),
