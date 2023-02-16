@@ -59,13 +59,18 @@ class TracksAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CinqAppBar(
-      leading: SvgPicture.asset(
-        'assets/icons/back-arr.svg',
-        width: 25,
-        height: 25,
-        colorFilter: ColorFilter.mode(
-          Theme.of(context).primaryColorLight,
-          BlendMode.srcIn,
+      leading: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: SvgPicture.asset(
+          'assets/icons/back-arr.svg',
+          width: 25,
+          height: 25,
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).primaryColorLight,
+            BlendMode.srcIn,
+          ),
         ),
       ),
       title: Text(

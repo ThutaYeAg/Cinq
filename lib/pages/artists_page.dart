@@ -15,6 +15,12 @@ class ArtistsPage extends StatelessWidget {
         preferredSize: Size.fromHeight(70),
         child: ArtistsAppBar(),
       ),
+      drawer: Drawer(
+        backgroundColor: Theme.of(context).canvasColor,
+        surfaceTintColor: Theme.of(context).canvasColor,
+        width: 100,
+        child: Center(child: Text("ddd")),
+      ),
       body: Container(
         child: ListView(
           children: [
@@ -44,13 +50,18 @@ class ArtistsAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CinqAppBar(
-      leading: SvgPicture.asset(
-        'assets/icons/menu.svg',
-        width: 30,
-        height: 30,
-        colorFilter: ColorFilter.mode(
-          Theme.of(context).primaryColorLight,
-          BlendMode.srcIn,
+      leading: GestureDetector(
+        onTap: () {
+          Scaffold.of(context).openDrawer();
+        },
+        child: SvgPicture.asset(
+          'assets/icons/menu.svg',
+          width: 30,
+          height: 30,
+          colorFilter: ColorFilter.mode(
+            Theme.of(context).primaryColorLight,
+            BlendMode.srcIn,
+          ),
         ),
       ),
       title: Text(

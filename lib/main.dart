@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'data/models.dart';
 import 'pages/artists_page.dart';
@@ -41,6 +42,50 @@ class Cinq extends StatelessWidget {
       onGenerateRoute: (settings) {
         return MaterialPageRoute(builder: (ctx) => ArtistsPage());
       },
+    );
+  }
+}
+
+class TBTest extends StatefulWidget {
+  const TBTest({super.key});
+
+  @override
+  State<TBTest> createState() => _TBTestState();
+}
+
+class _TBTestState extends State<TBTest> with SingleTickerProviderStateMixin {
+  List wdgs = [
+    Container(
+      child: Center(child: Text("skrrrt")),
+    ),
+    Container(
+      child: Center(child: Text("bruh")),
+    )
+  ];
+  int currIdx = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: wdgs[currIdx],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (idx) {
+          setState(() {
+            currIdx = idx;
+          });
+        },
+        currentIndex: currIdx,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_tree_rounded),
+            label: "Skrrt",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wrong_location_outlined),
+            label: "Bruh",
+          )
+        ],
+      ),
     );
   }
 }
